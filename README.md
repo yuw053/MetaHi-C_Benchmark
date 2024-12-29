@@ -59,6 +59,7 @@ chmod +x downstream_pair.sh
     * minimap2_pr_def
     * chromap
 <br>
+
 For single-end reads:
 ```
 chmod +x downstream_single.sh
