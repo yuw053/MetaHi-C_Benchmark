@@ -20,6 +20,13 @@ Once installed, run the preprocessing script:
 chmod +x preprocessing.sh
 ./preprocessing.sh WGS_1_FILE_PATH WGS_2_FILE_PATH HIC_1_FILE_PATH HIC_2_FILE_PATH BBTOOLS_PATH OUTPUT_PATH
 ```
+* WGS_1_FILE_PATH: The path to the shotgun library read 1 file. The file should be in .fastq.gz format.
+* WGS_2_FILE_PATH: The path to the shotgun library read 2 file. The file should be in .fastq.gz format.
+* HIC_1_FILE_PATH: The path to the Hi-C library read 1 file. The file should be in .fastq.gz format.
+* HIC_2_FILE_PATH: The path to the Hi-C library read 2 file. The file should be in .fastq.gz format.
+* BBTOOLS_PATH: The BBTools directory.
+* OUTPUT_PATH: The output directory.
+From all the generated .fastq.gz output files, only the following will be used in subsequent steps: WGS_1_CL.fastq.gz, WGS_2_CL.fastq.gz, HIC_1_dedup.fastq.gz, and HIC_2_dedup.fastq.gz.
 
 ### 3. Assembly
 Create a Conda environment for the assembly and alignment steps:
@@ -34,6 +41,9 @@ Run the assembly script:
 chmod +x assembly.sh 
 ./assembly.sh WGS_CL_1_FILE_PATH WGS_CL_2_FILE_PATH OUTPUT_PATH
 ```
+* WGS_CL_1_FILE_PATH: The path to the WGS_1_CL.fastq.gz file generated in Step 2.
+* WGS_CL_2_FILE_PATH: The path to the WGS_2_CL.fastq.gz file generated in Step 2.
+* OUTPUT_PATH: The output directory.
 
 ### 4. Alignment 
 Run the alignment script:
@@ -41,6 +51,9 @@ Run the alignment script:
 chmod +x alignment.sh
 ./alignment.sh ASSEMBLY_FILE_PATH HIC_1_FILE_PATH HIC_2_FILE_PATH OUTPUT_PATH
 ```
+* ASSEMBLY_FILE_PATH: The path to final.contigs.fa file generated in step 3.
+* HIC_1_FILE_PATH: The path to HIC_1_dedup.fastq.gz file generated in step 2.
+* HIC_2_FILE_PATH: The path to HIC_2_dedup.fastq.gz file generated in step 2.
 
 ### 5. MetaCC
 Install MetaCC by following the [MetaCC installation guide](https://github.com/dyxstat/MetaCC?tab=readme-ov-file#installation-guide).
@@ -50,12 +63,11 @@ For paired-end reads:
 chmod +x downstream_pair.sh
 ./downstream_pair.sh ASSEMBLY_FILE_PATH ALINGMENT_FILE_PATH MODE OUTPUT_PATH
 ```
+* ASSEMBLY_FILE_PATH: The path to final.contigs.fa file generated in step 3.
+* ALINGMENT_FILE_PATH: The path to aln_sorted.bam file generated in step 4.
 * MODE: Each mode corresponds to one alignment strategy. The following modes are available:
     * bwa_mem_pr_5sp
     * bwa_mem_pr_def
-    * bwa_aln_sr
-    * bowtie2_sr_def
-    * bowtie2_sr_sensitive
     * minimap2_pr_def
     * chromap
 <br>
@@ -65,6 +77,13 @@ For single-end reads:
 chmod +x downstream_single.sh
 ./downstream_single.sh ASSEMBLY_FILE_PATH ALINGMENT_1_FILE_PATH ALINGMENT_2_FILE_PATH MODE OUTPUT_PATH
 ```
+* ASSEMBLY_FILE_PATH: The path to final.contigs.fa file generated in step 3.
+* ALINGMENT_1_FILE_PATH: The path to for_sorted.bam file generated in step 4.
+* ALINGMENT_2_FILE_PATH: The path to rev_sorted.bam file generated in step 4.
+* MODE: Each mode corresponds to one alignment strategy. The following modes are available:
+    * bwa_aln_sr
+    * bowtie2_sr_def
+    * bowtie2_sr_sensitive
 
 ### 6. ImputeCC
 Install ImputeCC by following the [Impute installation guide](https://github.com/dyxstat/ImputeCC?tab=readme-ov-file#installation-guide).
@@ -74,6 +93,7 @@ Run:
 chmod +x imputecc.sh
 ./imputecc.sh ASSEMBLY_FILE_PATH MODE OUTPUT_PATH
 ```
+* ASSEMBLY_FILE_PATH: The path to final.contigs.fa file generated in step 3.
 
 ### 7. CheckM2
 CheckM2 can be installed by following the instructions in the [CheckM2 GitHub repository](https://github.com/chklovski/CheckM2). <br>
