@@ -5,12 +5,12 @@ This repository contains the code used in the benchmark paper evaluating alignme
 We selected seven alignment strategies that have been used in Hi-C analyses: BWA MEM -5SP, BWA MEM default, BWA aln default, Bowtie2 default, Bowtie2 –very-sensitive-local, Minimap2 default, and Chromap default. We benchmarked them on one synthetic and seven real-world environments, and evaluated these tools based on the number of inter-contig Hi-C read pairs and their influence on downstream tasks, such as binning quality.
 
 ## Getting Started
-1. Clone the Repository
+1. **Clone the Repository**
 To obtain the necessary scripts, clone the repository using the following command:
 ```
 git clone https://github.com/yuw053/MetaHi-C_Benchmark.git
 ```
-
+`  `
 2. Preprocessing
 Install BBTools by following the [BBTools installation guide](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/installation-guide/).
 
